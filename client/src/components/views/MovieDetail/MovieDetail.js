@@ -4,6 +4,7 @@ import MainImage from "../LandingPage/Sections/MainImage";
 import MovieInfo from "./Sections/Movieinfo";
 import GridCards from "../commons/GridCards";
 import { Row } from "antd";
+import Favorite from "./Sections/Favorite"
 
 function MovieDetail(props) {
   let movieId = props.match.params.movieId;
@@ -23,14 +24,13 @@ function MovieDetail(props) {
     fetch(endpointCrew)
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         setCast(response.cast);
       });
   });
 
   const toggleActorView = () => {
-      setActorToggle(!ActorToggle)
-  }
+    setActorToggle(!ActorToggle);
+  };
 
   return (
     <div>
@@ -43,6 +43,11 @@ function MovieDetail(props) {
 
       {/* Body */}
       <div style={{ width: "85%", margin: "1rem auto" }}>
+
+    <div style={{display: "flex", justifyContent: "flex-end"}}>
+        <Favorite movieInfo={Movie} movieId={movieId} userFrom={localStorage.getItem("userId")} />
+    </div>
+
         {/* Movie Info */}
         <MovieInfo movie={Movie} />
         <br />
